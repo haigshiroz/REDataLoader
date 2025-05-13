@@ -12,7 +12,7 @@ import org.bson.Document;
 public class DBDao {    
     public void createResidence(List<Document> newResidences) {
         // Establish connection
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017/")) {
+        try (MongoClient mongoClient = MongoClients.create("mongodb+srv://shirozianh:lReVvB53gWWFTOyx@realestatedata.ncrbvt4.mongodb.net/")) {
             // Get the database
             MongoDatabase sampleTrainingDB = mongoClient.getDatabase("RealEstateDB");
             
