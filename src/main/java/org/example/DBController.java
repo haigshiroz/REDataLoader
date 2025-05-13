@@ -5,7 +5,6 @@ import io.javalin.http.Context;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.bson.Document;
@@ -27,7 +26,7 @@ public class DBController {
             List<Document> residence = List.of(residenceArray);
             dbDao.createResidence(residence);
             ctx.status(201).result("Residence created");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             ctx.status(500).result("Database error");
             log.debug("Database error", e);
         }

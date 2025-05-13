@@ -2,7 +2,6 @@ package org.example;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -50,9 +48,6 @@ public class Main {
 
         List<String> allData = new ArrayList<>();
         try (CSVParser parser = CSVParser.parse(csvFilePath, StandardCharsets.UTF_8, CSV_FORMAT)){
-            // System.out.println("File opened");
-            // String headers = parser.getHeaderNames().toString();
-            // System.out.println("headers: " + headers);
             // Iterate over input CSV records
             int count = 0;
             for (final CSVRecord record : parser)
@@ -68,8 +63,8 @@ public class Main {
 
                 count++;
 
-                // Every 1000 records send a request
-                if (count > 2000) {
+                // Every 2000 records send a request
+                if (count >= 2000) {
                     // Create an HTTP create Request
                     HttpRequest request = HttpRequest.newBuilder()
                         .version(Version.HTTP_1_1)
@@ -81,8 +76,7 @@ public class Main {
                     // Send the request
                     try {
                         HttpClient client = HttpClient.newHttpClient();
-                        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                        // System.out.println("Response: " + response.statusCode() + " - " + response.body());
+                        client.send(request, HttpResponse.BodyHandlers.ofString());
                     } catch (IOException | InterruptedException e) {
                         System.out.println("Error sending request: " + e.getMessage());
                     }
@@ -105,8 +99,7 @@ public class Main {
                 // Send the request
                 try {
                     HttpClient client = HttpClient.newHttpClient();
-                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                    // System.out.println("Response: " + response.statusCode() + " - " + response.body());
+                    client.send(request, HttpResponse.BodyHandlers.ofString());
                 } catch (IOException | InterruptedException e) {
                     System.out.println("Error sending request: " + e.getMessage());
                 }

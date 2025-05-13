@@ -1,6 +1,5 @@
 package org.example;
 
-import java.sql.*;
 import java.util.List;
 
 import com.mongodb.client.MongoClient;
@@ -11,7 +10,7 @@ import org.bson.Document;
 
 
 public class DBDao {    
-    public void createResidence(List<Document> newResidences) throws SQLException {
+    public void createResidence(List<Document> newResidences) {
         // Establish connection
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017/")) {
             // Get the database
