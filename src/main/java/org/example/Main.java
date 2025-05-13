@@ -109,7 +109,5 @@ public class Main {
         } catch (IOException e) {
             System.out.println("File open failed " + e.getMessage());
         }
-
-
     }
 }
